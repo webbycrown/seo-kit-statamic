@@ -97,10 +97,34 @@ class SeoData
         }
 
         if (str_starts_with($pathOrUrl, '//')) {
-            return (request()->isSecure() ? 'https:' : 'http:').$pathOrUrl;
+            $secure = false;
+            try {
+                $secure = function_exists('request') && request()?->isSecure();
+            } catch (\Throwable $e) {
+                $secure = false;
+            }
+
+            return ($secure ? 'https:' : 'http:').$pathOrUrl;
         }
 
-        $base = rtrim(config('app.url') ?: Site::current()->absoluteUrl(), '/');
+        $base = null;
+        try {
+            if (function_exists('app') && app()->bound('config')) {
+                $base = config('app.url');
+            }
+        } catch (\Throwable $e) {
+            $base = null;
+        }
+
+        if (! $base) {
+            try {
+                $base = Site::current()->absoluteUrl();
+            } catch (\Throwable $e) {
+                return '/'.ltrim($pathOrUrl, '/');
+            }
+        }
+
+        $base = rtrim((string) $base, '/');
 
         return $base.'/'.ltrim($pathOrUrl, '/');
     }

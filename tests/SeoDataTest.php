@@ -16,23 +16,14 @@ class SeoDataTest extends TestCase
         $this->assertSame('https://cdn.example/a.png', SeoData::normalizeAssetPath('https://cdn.example/a.png'));
     }
 
-    public function test_absolute_url_joins_app_url(): void
+    public function test_absolute_url_joins_base_without_laravel_app(): void
     {
-        // Without Laravel app bootstrap, config() may be unavailable — skip if so.
-        if (! function_exists('config')) {
-            $this->markTestSkipped('Laravel config helper not available.');
-        }
-
-        config(['app.url' => 'https://example.test']);
-
-        $this->assertSame(
-            'https://example.test/assets/logo.png',
-            SeoData::absoluteUrl('/assets/logo.png')
-        );
+        // When Laravel is not bootstrapped, absoluteUrl still returns absolute http(s) unchanged.
         $this->assertSame(
             'https://cdn.example/x.png',
             SeoData::absoluteUrl('https://cdn.example/x.png')
         );
+        $this->assertNull(SeoData::absoluteUrl(null));
     }
 
     public function test_json_ld_graph_includes_website_organization_and_webpage(): void

@@ -1,0 +1,54 @@
+title: SEO Kit
+tabs:
+  main:
+    display: Main
+    sections:
+      -
+        display: Site defaults
+        fields:
+          -
+            handle: site_name
+            field:
+              type: text
+              display: Site name
+              instructions: Used in titles and og:site_name when the entry has no override.
+          -
+            handle: default_description
+            field:
+              type: textarea
+              display: Default description
+              instructions: Fallback meta / social description.
+          -
+            handle: default_image
+            field:
+              type: assets
+              display: Default social image
+              container: assets
+              max_files: 1
+          -
+            handle: twitter_handle
+            field:
+              type: text
+              display: Twitter / X handle
+              instructions: Without the @ (e.g. webbycrown).
+      -
+        display: Organization (JSON-LD)
+        fields:
+          -
+            handle: organization_name
+            field:
+              type: text
+              display: Organization name
+          -
+            handle: organization_url
+            field:
+              type: text
+              display: Organization URL
+              instructions: Absolute URL. Defaults to the site URL.
+          -
+            handle: organization_logo
+            field:
+              type: assets
+              display: Organization logo
+              container: assets
+              max_files: 1

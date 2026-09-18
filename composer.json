@@ -1,5 +1,6 @@
 {
     "name": "webbycrown/seo-kit-statamic",
+    "version": "1.0.0",
     "description": "SEO kit for Statamic starter sites — meta, Open Graph, JSON-LD, and XML sitemap",
     "keywords": [
         "statamic",
